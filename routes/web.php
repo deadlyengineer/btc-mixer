@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BTCController;
+use App\Http\Controllers\MixerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MixerController::class, 'index']);
 
 Route::get('/create-wallet', [BTCController::class, 'createWallet']);
 Route::get('/create-transaction', [BTCController::class, 'createTransaction']);
