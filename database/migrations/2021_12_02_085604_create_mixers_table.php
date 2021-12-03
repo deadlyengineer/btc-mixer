@@ -22,10 +22,10 @@ class CreateMixersTable extends Migration
             $table->string('to_wallet_address');
             $table->integer('level')->default(3);
             $table->integer('deep')->default(4);
-            $table->integer('start_wallet_id');
-            $table->integer('end_wallet_id');
+            $table->integer('start_wallet_id')->nullable();
+            $table->integer('end_wallet_id')->nullable();
             $table->boolean('is_test');
-            $table->boolean('is_process');
+            $table->integer('is_process');
             $table->timestamps();
         });
     }

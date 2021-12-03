@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CreateWallet;
 use App\Models\Mixer;
 use Illuminate\Http\Request;
 
@@ -10,11 +9,17 @@ class MixerController extends Controller
 {
     public function index()
     {
-        return view('mixer.index');
+        $mixer = Mixer::where('is_process', '<', 2)->first();
+
+        if (isset($mixer)) {
+            return view('mixer.index', ['is_process' => 1]);
+        } else {
+            return view('mixer.index', ['is_process' => 0]);
+        }
     }
     public function start_mixer(Request $request)
     {
-        $wallet_data = CreateWallet::dispatchSync(1, 3);
+        // $wallet_data = CreateWallet::dispatch(1, 10000);
 
         $mixer = new Mixer;
         $mixer->from_wallet_address = $request->from_wallet_address;
@@ -24,10 +29,8 @@ class MixerController extends Controller
         $mixer->to_wallet_address = $request->to_wallet_address;
         $mixer->level = $request->level;
         $mixer->deep = $request->deep;
-        $mixer->start_wallet_id = $wallet_data['start_wallet_id'];
-        $mixer->end_wallet_id = $wallet_data['end_wallet_id'];
         $mixer->is_test = $request->is_test == 1;
-        $mixer->is_process = true;
+        $mixer->is_process = 0;
         $mixer->save();
 
         return $mixer;

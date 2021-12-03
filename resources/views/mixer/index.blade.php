@@ -51,10 +51,11 @@
             <label for="is_test">Network Type</label>
             <select id="is_test" name="is_test">
                 <option value="0">Mainnet</option>
-                <option value="1">Testnet</option>
+                <option value="1" selected>Testnet</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Start Mixer</button>
+        <button type="submit" class="btn btn-primary" {{ $is_process == 1 ? 'disabled' : '' }}>Start Mixer</button>
+        {{ $is_process == 1 ? "Mixer is processing now. You cannot start a new mixer." : "" }}
       </form>
     </div>
   </div>
