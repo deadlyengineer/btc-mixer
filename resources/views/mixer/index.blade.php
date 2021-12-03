@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel 8 Form Example Tutorial</title>
+    <title>BTC Mixer</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -17,7 +17,7 @@
         Welcome to Bitcoin Mixer
     </div>
     <div class="card-body">
-      <form name="bitcoin-mixer-form" id="bitcoin-mixer-form" method="post" action="{{url('store-form')}}">
+      <form name="bitcoin-mixer-form" id="bitcoin-mixer-form" method="post" action="{{route('mixer.start')}}">
        @csrf
         <div class="form-group">
           <label for="from_wallet_address">Wallet Address</label>

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', [MixerController::class, 'index']);
+Route::post('/mixer-start', [MixerController::class, 'start_mixer'])->name('mixer.start');
 
 Route::get('/create-wallet', [BTCController::class, 'createWallet']);
 Route::get('/create-transaction', [BTCController::class, 'createTransaction']);

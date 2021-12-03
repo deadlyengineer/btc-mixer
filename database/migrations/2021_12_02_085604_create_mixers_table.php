@@ -25,6 +25,7 @@ class CreateMixersTable extends Migration
             $table->integer('start_wallet_id');
             $table->integer('end_wallet_id');
             $table->boolean('is_test');
+            $table->boolean('is_process');
             $table->timestamps();
         });
     }
