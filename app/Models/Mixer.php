@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Mixer extends Model
 {
     use HasFactory;
+
+    public function get_wallet_count()
+    {
+        $from_wallet_id = $this->from_wallet_id;
+        $end_wallet_id = $this->end_wallet_id;
+
+        return $end_wallet_id - $from_wallet_id + 1;
+    }
 }

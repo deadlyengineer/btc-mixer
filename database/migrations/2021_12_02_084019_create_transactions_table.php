@@ -26,8 +26,7 @@ class CreateTransactionsTable extends Migration
             $table->string('output2_value')->nullable();
             $table->integer('sent_index');
             $table->integer('layer_deep');
-            $table->integer('nodeid');
-            $table->boolean('is_test');
+            $table->integer('nodeId');
             $table->timestamps();
         });
     }

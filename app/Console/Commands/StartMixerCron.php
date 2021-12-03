@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\LayerController;
 use App\Jobs\CreateWallet;
 use App\Models\Mixer;
 use Illuminate\Console\Command;
@@ -45,6 +46,8 @@ class StartMixerCron extends Command
         if (isset($mixer)) {
             $this->create_wallet($mixer);
 
+            $this->run_first_layer($mixer);
+
             $mixer->is_process = 2;
             $mixer->save();
         }
@@ -71,8 +74,10 @@ class StartMixerCron extends Command
         return $mixer;
     }
 
-    public function run_first_layer()
+    public function run_first_layer($mixer)
     {
+        $layer = LayerController::run(0, $mixer);
 
+        return $layer;
     }
 }

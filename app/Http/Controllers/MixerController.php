@@ -33,6 +33,6 @@ class MixerController extends Controller
         $mixer->is_process = 0;
         $mixer->save();
 
-        return $mixer;
+        return redirect()->route('home');
     }
 }
