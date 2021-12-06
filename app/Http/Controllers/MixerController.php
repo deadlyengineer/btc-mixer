@@ -7,14 +7,26 @@ use Illuminate\Http\Request;
 
 class MixerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $mixer = Mixer::where('is_process', '<', 2)->first();
 
-        if (isset($mixer)) {
-            return view('mixer.index', ['is_process' => 1]);
+        $wallet_address = $request->input('search');
+        $mixer_search = Mixer::where('from_wallet_address', $wallet_address)->orderBy('id', 'desc')->first();
+
+        if (isset($mixer_search)) {
+
+            $transactions = $mixer_search->get_all_transactions($wallet_address);
+            $is_test = $mixer_search->is_test;
         } else {
-            return view('mixer.index', ['is_process' => 0]);
+            $transactions = [];
+            $is_test = false;
+        }
+
+        if (isset($mixer)) {
+            return view('mixer.index', ['is_process' => 1, 'transactions' => $transactions, 'is_test' => $is_test]);
+        } else {
+            return view('mixer.index', ['is_process' => 0, 'transactions' => $transactions, 'is_test' => $is_test]);
         }
     }
     public function start_mixer(Request $request)

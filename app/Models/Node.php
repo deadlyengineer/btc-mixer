@@ -13,4 +13,9 @@ class Node extends Model
     {
         return $this->belongsTo(Layer::class, 'layerId');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'nodeId');
+    }
 }

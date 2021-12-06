@@ -16,4 +16,36 @@ class Mixer extends Model
 
         return $end_wallet_id - $start_wallet_id + 1;
     }
+
+    public function layers()
+    {
+        return $this->hasMany(Layer::class, 'mixerId');
+    }
+
+    public function get_all_transactions($query)
+    {
+        $transaction_node_ids = [];
+        $layers = $this->layers;
+
+        foreach ($layers as $layer) {
+            $nodes = $layer->nodes;
+            foreach ($nodes as $node) {
+                array_push($transaction_node_ids, $node->id);
+            }
+        }
+
+        $transactions = [];
+
+        foreach ($transaction_node_ids as $key => $node_id) {
+            if ($key == 0) {
+                $transactions = Transaction::where('nodeId', $node_id);
+            } else {
+                $transactions = $transactions->orWhere('nodeId', $node_id);
+            }
+        }
+
+        $transactions = $transactions->paginate(10)->withQueryString();
+
+        return $transactions;
+    }
 }

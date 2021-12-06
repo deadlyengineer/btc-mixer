@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\NodeController;
 use App\Models\Layer;
 use App\Models\Mixer;
+use App\Models\Transaction;
 
 class LayerController extends Controller
 {
@@ -30,10 +31,24 @@ class LayerController extends Controller
     public function run_all_nodes(int $layer_deep, Layer $layer)
     {
         $mixer = $layer->mixer;
+        $deep = $mixer->deep;
+
         if ($layer_deep == 0) {
             $tx_id = $mixer->from_txid;
             $wallet_address = $mixer->from_wallet_address;
             $node = NodeController::run($tx_id, $wallet_address, $layer);
+
+            return $layer;
         }
+
+        $transactions = Transaction::where('layer_deep', $layer_deep - 1)->get();
+
+        foreach ($transactions as $transaction) {
+            $tx_id = $transaction->txid;
+            $wallet_address = $transaction->output1_address;
+            $node = NodeController::run($tx_id, $wallet_address, $layer);
+        }
+
+        return $layer;
     }
 }

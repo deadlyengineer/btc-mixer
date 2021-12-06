@@ -50,7 +50,7 @@
         <div class="form-group">
             <label for="is_test">Network Type</label>
             <select id="is_test" name="is_test">
-                <option value="0">Mainnet</option>
+                <option value="0" disabled>Mainnet</option>
                 <option value="1" selected>Testnet</option>
             </select>
         </div>
@@ -58,6 +58,29 @@
         {{ $is_process == 1 ? "Mixer is processing now. You cannot start a new mixer." : "" }}
       </form>
     </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-6">
+        <h2 class="text-primary">Transaction History</h2>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+        <form action="{{ route('home') }}" method="GET">
+          <input type="text" name="search" placeholder="Enter wallet address..."/>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        {{ $transactions->links("pagination::bootstrap-4") }}
+    </div>
+    @foreach ($transactions as $transaction)
+      <x-transaction-component :transaction="$transaction" :istest="$is_test" />
+    @endforeach
+  </div>
+  <div class="d-flex justify-content-center">
+      {{ $transactions->links("pagination::bootstrap-4") }}
   </div>
 </div>
 </body>

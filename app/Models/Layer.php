@@ -13,4 +13,9 @@ class Layer extends Model
     {
         return $this->belongsTo(Mixer::class, 'mixerId');
     }
+
+    public function nodes()
+    {
+        return $this->hasMany(Node::class, 'layerId');
+    }
 }

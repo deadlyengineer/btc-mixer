@@ -79,9 +79,9 @@ class StartMixerCron extends Command
         $deep = $mixer->deep;
 
         for ($i = 0; $i < $deep; $i++) {
-            $layer = LayerController::run(0, $mixer);
+            $layer = LayerController::run($i, $mixer);
         }
 
-        return $layer;
+        return $mixer;
     }
 }
