@@ -17,6 +17,11 @@
         Welcome to Bitcoin Mixer
     </div>
     <div class="card-body">
+      @if ($is_process == 1)
+        <div class="alert alert-warning">
+          Mixer is processing now. You cannot start a new mixer.
+        </div>
+      @endif
       <form name="bitcoin-mixer-form" id="bitcoin-mixer-form" method="post" action="{{route('mixer.start')}}">
        @csrf
         <div class="form-group">
@@ -55,7 +60,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary" {{ $is_process == 1 ? 'disabled' : '' }}>Start Mixer</button>
-        {{ $is_process == 1 ? "Mixer is processing now. You cannot start a new mixer." : "" }}
+
       </form>
     </div>
   </div>
@@ -72,15 +77,22 @@
         </form>
       </div>
     </div>
+    @if (count($transactions) > 0)
+
     <div class="d-flex justify-content-center">
         {{ $transactions->links("pagination::bootstrap-4") }}
     </div>
     @foreach ($transactions as $transaction)
       <x-transaction-component :transaction="$transaction" :istest="$is_test" />
     @endforeach
-  </div>
-  <div class="d-flex justify-content-center">
-      {{ $transactions->links("pagination::bootstrap-4") }}
+    <div class="d-flex justify-content-center">
+        {{ $transactions->links("pagination::bootstrap-4") }}
+    </div>
+    @else
+    <div class="d-flex justify-content-center">
+      Not Found Transaction
+    </div>
+    @endif
   </div>
 </div>
 </body>
