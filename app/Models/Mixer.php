@@ -11,9 +11,9 @@ class Mixer extends Model
 
     public function get_wallet_count()
     {
-        $from_wallet_id = $this->from_wallet_id;
+        $start_wallet_id = $this->start_wallet_id;
         $end_wallet_id = $this->end_wallet_id;
 
-        return $end_wallet_id - $from_wallet_id + 1;
+        return $end_wallet_id - $start_wallet_id + 1;
     }
 }

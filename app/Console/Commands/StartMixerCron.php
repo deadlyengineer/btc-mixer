@@ -46,7 +46,7 @@ class StartMixerCron extends Command
         if (isset($mixer)) {
             $this->create_wallet($mixer);
 
-            $this->run_first_layer($mixer);
+            $this->run_all_layer($mixer);
 
             $mixer->is_process = 2;
             $mixer->save();
@@ -65,7 +65,7 @@ class StartMixerCron extends Command
         $mixer->is_process = 1;
         $mixer->save();
 
-        $wallet_data = CreateWallet::dispatchsync($mixer->is_test, 100);
+        $wallet_data = CreateWallet::dispatchsync($mixer->is_test, 10);
 
         $mixer->start_wallet_id = $wallet_data['start_wallet_id'];
         $mixer->end_wallet_id = $wallet_data['end_wallet_id'];
@@ -74,9 +74,13 @@ class StartMixerCron extends Command
         return $mixer;
     }
 
-    public function run_first_layer($mixer)
+    public function run_all_layer(Mixer $mixer)
     {
-        $layer = LayerController::run(0, $mixer);
+        $deep = $mixer->deep;
+
+        for ($i = 0; $i < $deep; $i++) {
+            $layer = LayerController::run(0, $mixer);
+        }
 
         return $layer;
     }

@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
           <label for="value">Total Value (BTC)</label>
-          <input type="number" id="value" name="value" class="form-control" min="0" required="">
+          <input type="number" id="value" name="value" class="form-control" min="0" step="any" required="">
         </div>
         <div class="form-group">
           <label for="level">Level</label>

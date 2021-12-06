@@ -15,10 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('txid');
             $table->integer('total_value');
             $table->integer('fees');
             $table->string('input_address');
-            $table->integer('input_outpoint_total_value');
             $table->string('input_outpoint_txid');
             $table->string('output1_address');
             $table->string('output1_value');

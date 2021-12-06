@@ -25,7 +25,7 @@ class MixerController extends Controller
         $mixer->from_wallet_address = $request->from_wallet_address;
         $mixer->from_wallet_private_key = $request->from_wallet_private_key;
         $mixer->from_txid = $request->from_txid;
-        $mixer->value = $request->value;
+        $mixer->value = $request->value * 100000000;
         $mixer->to_wallet_address = $request->to_wallet_address;
         $mixer->level = $request->level;
         $mixer->deep = $request->deep;

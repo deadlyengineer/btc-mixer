@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\TransactionController;
 use App\Models\Layer;
 use App\Models\Node;
+use App\Models\Wallet;
+use Illuminate\Support\Facades\Log;
 
 class NodeController extends Controller
 {
@@ -29,8 +32,69 @@ class NodeController extends Controller
 
     public function run_all_transactions(string $tx_id, string $wallet_address, Node $node)
     {
-        // run(string $payment_wallet_address, string $collection_wallet_address, string $output_txid, int $fees, int $sent_value, int $output_index, int $transaction_type, int $nodeid)
-        Transaction::run($payment_wallet_address, $collection_wallet_address, $output_txid, $fees, $sent_value, $output_index, $transaction_type $node);
+        $fees = 250; //satoshi
+        $layer = $node->layer;
+        $mixer = $layer->mixer;
+        $layer_deep = $layer->layer_deep;
+        $deep = $mixer->deep;
+        $is_test = $mixer->is_test;
+        $start_wallet_id = $mixer->start_wallet_id;
+
+        if ($layer_deep == 0) {
+            $level = $mixer->get_wallet_count();
+            $tx_value = $mixer->value;
+            $payment_wallet_address = $mixer->from_wallet_address;
+            $payment_wallet_private_key = $mixer->from_wallet_private_key;
+
+            $devided_values = self::devide_random_value($tx_value, $level, $layer_deep, $deep);
+
+            $output_txid = $mixer->from_txid;
+            $outpoint_index = 0;
+
+            for ($index = 0; $index < count($devided_values); $index++) {
+
+                $collection_wallet_address = Wallet::where('id', $start_wallet_id + $index)->first()->address;
+                $sent_value = $devided_values[$index];
+
+                $transaction = TransactionController::run($payment_wallet_private_key, $payment_wallet_address, $collection_wallet_address, $output_txid, $tx_value, $fees, $sent_value, $outpoint_index, $is_test, $node);
+
+                $tx_value = $transaction->output2_value;
+                $output_txid = $transaction->txid;
+                $outpoint_index = 1;
+            }
+        }
+
     }
 
+    public function devide_random_value(int $value, int $count, int $layer_deep, int $deep)
+    {
+        $mass = [];
+        $result = [];
+        $fees = 250; //satoshi
+
+        Log::info('value: ' . $value);
+        $min_value = ($deep - $layer_deep - 1) * $fees;
+        Log::info('min value: ' . $min_value);
+
+        if ($value < 2 * $min_value * $count) {
+            Log::info('The wallets are too many...');
+            $count = floor($value / $min_value / 2);
+            Log::info('wallet count: ' . $count);
+        }
+
+        for ($index = 0; $index < $count; $index++) {
+            array_push($mass, rand(1, 100));
+        }
+
+        $sum = array_sum($mass);
+
+        for ($index = 0; $index < $count - 1; $index++) {
+            array_push($result, floor($mass[$index] * ($value - $count * $min_value) / $sum + $min_value - $fees));
+        }
+
+        $result[$count - 1] = $value - $fees * $count - array_sum($result);
+
+        return $result;
+
+    }
 }
