@@ -88,19 +88,18 @@ class TransactionController extends Controller
         $broadcast = $signed->getBaseSerialization()->getHex();
         Log::info('<br>' . $broadcast);
         $client = new Client;
-        sleep(0.5);
         try {
             $response = $client->request('POST', $url, [
                 'json' => [
                     'tx' => $signed->getBaseSerialization()->getHex(),
                 ],
             ]);
-            Log::info('ok<br>');
+            Log::info('ok');
             Log::info(json_decode($response->getBody(), true));
             return $signed->getTxId()->getHex();
 
         } catch (ClientException $e) {
-            Log::info('error<br>');
+            Log::info('error');
             Log::info($e->getResponse());
             return 0;
         }
