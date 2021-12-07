@@ -44,7 +44,7 @@ class Mixer extends Model
             }
         }
 
-        if (count($transactions) > 0) {
+        if (!is_array($transactions)) {
 
             $transactions = $transactions->paginate(5)->withQueryString();
         }
