@@ -44,7 +44,7 @@ class Mixer extends Model
             }
         }
 
-        $transactions = $transactions->paginate(10)->withQueryString();
+        $transactions = $transactions->paginate(5)->withQueryString();
 
         return $transactions;
     }
