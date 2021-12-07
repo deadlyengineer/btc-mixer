@@ -41,6 +41,7 @@ class MixerController extends Controller
         $mixer->to_wallet_address = $request->to_wallet_address;
         $mixer->level = $request->level;
         $mixer->deep = $request->deep;
+        $mixer->total_wallet_count = $request->total_wallet_count;
         $mixer->outpoint_index = $request->outpoint_index;
         $mixer->is_test = $request->is_test == 1;
         $mixer->is_process = 0;

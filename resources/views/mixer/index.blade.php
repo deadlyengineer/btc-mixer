@@ -57,6 +57,10 @@
           <input type="number" id="deep" name="deep" class="form-control" min="2" required="" value="4">
         </div>
         <div class="form-group">
+          <label for="total_wallet_count">Total Wallet Count</label>
+          <input type="number" id="total_wallet_count" name="total_wallet_count" class="form-control" min="5" required="">
+        </div>
+        <div class="form-group">
             <label for="is_test">Network Type</label>
             <select id="is_test" name="is_test">
                 <option value="0" disabled>Mainnet</option>

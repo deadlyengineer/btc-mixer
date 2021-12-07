@@ -65,7 +65,9 @@ class StartMixerCron extends Command
         $mixer->is_process = 1;
         $mixer->save();
 
-        $wallet_data = CreateWallet::dispatchsync($mixer->is_test, 10);
+        $total_wallet_count = $mixer->total_wallet_count;
+
+        $wallet_data = CreateWallet::dispatchsync($mixer->is_test, $total_wallet_count);
 
         $mixer->start_wallet_id = $wallet_data['start_wallet_id'];
         $mixer->end_wallet_id = $wallet_data['end_wallet_id'];

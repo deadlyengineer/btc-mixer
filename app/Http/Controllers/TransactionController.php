@@ -88,6 +88,7 @@ class TransactionController extends Controller
         $broadcast = $signed->getBaseSerialization()->getHex();
         Log::info('<br>' . $broadcast);
         $client = new Client;
+        sleep(0.5);
         try {
             $response = $client->request('POST', $url, [
                 'json' => [
