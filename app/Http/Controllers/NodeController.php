@@ -51,7 +51,7 @@ class NodeController extends Controller
             $devided_values = self::devide_random_value($tx_value, $level, $layer_deep, $deep);
 
             $output_txid = $mixer->from_txid;
-            $outpoint_index = 0;
+            $outpoint_index = $mixer->outpoint_index;
 
             for ($index = 0; $index < count($devided_values); $index++) {
 
