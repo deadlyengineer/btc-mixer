@@ -37,6 +37,10 @@
           <input type="text" id="from_txid" name="from_txid" class="form-control" required="">
         </div>
         <div class="form-group">
+          <label for="outpoint_index">Last transaction Outpoint Index</label>
+          <input type="number" id="outpoint_index" name="outpoint_index" class="form-control" min="0" required="">
+        </div>
+        <div class="form-group">
           <label for="to_wallet_address">Target Wallet Address</label>
           <input type="text" id="to_wallet_address" name="to_wallet_address" class="form-control" required="">
         </div>

@@ -18,6 +18,7 @@ class CreateMixersTable extends Migration
             $table->string('from_wallet_address');
             $table->string('from_wallet_private_key');
             $table->string('from_txid');
+            $table->integer('outpoint_index');
             $table->integer('value');
             $table->string('to_wallet_address');
             $table->integer('level')->default(3);
