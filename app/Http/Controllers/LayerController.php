@@ -32,6 +32,7 @@ class LayerController extends Controller
     {
         $mixer = $layer->mixer;
         $deep = $mixer->deep;
+        $mixerId = $mixer->id;
 
         if ($layer_deep == 0) {
             $tx_id = $mixer->from_txid;
@@ -41,7 +42,7 @@ class LayerController extends Controller
             return $layer;
         }
 
-        $transactions = Transaction::where('layer_deep', $layer_deep - 1)->get();
+        $transactions = Transaction::where('layer_deep', $layer_deep - 1)->where('mixerId', $mixerId)->get();
 
         foreach ($transactions as $transaction) {
             $tx_id = $transaction->txid;

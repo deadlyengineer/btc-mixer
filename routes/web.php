@@ -19,4 +19,4 @@ Route::get('/', [MixerController::class, 'index'])->name('home');
 Route::post('/mixer-start', [MixerController::class, 'start_mixer'])->name('mixer.start');
 
 Route::get('/create-wallet', [BTCController::class, 'createWallet']);
-Route::get('/create-transaction', [BTCController::class, 'createTransaction']);
+Route::get('/create-transaction', [BTCController::class, 'p2wkh_p2pkh']);

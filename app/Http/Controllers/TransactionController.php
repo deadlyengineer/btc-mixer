@@ -119,7 +119,8 @@ class TransactionController extends Controller
         $transaction->output2_value = $total_value - $output1_value - $fees;
         $transaction->sent_index = $sent_index;
         $transaction->layer_deep = $node->layer->layer_deep;
-        $transaction->nodeid = $node->id;
+        $transaction->nodeId = $node->id;
+        $transaction->mixerId = $node->layer->mixer->id;
         $transaction->save();
 
         return $transaction;

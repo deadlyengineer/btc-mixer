@@ -27,6 +27,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('sent_index');
             $table->integer('layer_deep');
             $table->integer('nodeId');
+            $table->integer('mixerId');
             $table->timestamps();
         });
     }
