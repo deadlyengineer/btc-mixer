@@ -2,7 +2,7 @@
     <div class="card" style="margin-bottom: 30px;">
     <div class="card-body">
         <h4 class="card-title">Transaction Hash <br>
-            <a href="{{ $istest ? "https://live.blockcypher.com/btc-testnet/tx/" . $transaction->txid : "https://live.blockcypher.com/btc/tx/" . $transaction->txid }}">{{ $transaction->txid }}</a>
+            <a href="{{ $istest ? "https://www.blockchain.com/btc-testnet/tx/" . $transaction->txid : "https://www.blockchain.com/btc/tx/" . $transaction->txid }}">{{ $transaction->txid }}</a>
         </h4>
         <p class="card-text">
             <div class="row">
