@@ -26,11 +26,11 @@
        @csrf
         <div class="form-group">
           <label for="from_wallet_address">Wallet Address</label>
-          <input type="text" id="from_wallet_address" name="from_wallet_address" class="form-control" required="">
+          <input type="text" id="from_wallet_address" name="from_wallet_address" class="form-control" required="" value="mxZubc8QMx4VuX8VnLc1oxQURthfuSsNqx" disabled>
         </div>
         <div class="form-group">
           <label for="from_wallet_private_key">Wallet Private Key</label>
-          <input type="text" id="from_wallet_private_key" name="from_wallet_private_key" class="form-control" required="">
+          <input type="text" id="from_wallet_private_key" name="from_wallet_private_key" class="form-control" required="" value="cW9yzoYt9DHyUXhPNPAjVbJZMuvhJL9jpCXJ7kjkpEoaBFMBjuFV" disabled>
         </div>
         <div class="form-group">
           <label for="from_txid">Last transaction Hash</label>
@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
           <label for="to_wallet_address">Target Wallet Address</label>
-          <input type="text" id="to_wallet_address" name="to_wallet_address" class="form-control" required="">
+          <input type="text" id="to_wallet_address" name="to_wallet_address" class="form-control" required="" value="mpQ4jpbDTGQRHtx3u9MD31rb8NEa7VU89S" disabled>
         </div>
         <div class="form-group">
           <label for="value">Total Value (BTC)</label>
